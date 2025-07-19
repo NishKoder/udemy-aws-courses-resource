@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Certified Cloud Practitioner CLF-C02 - Complete Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background: #1a1a2e;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="0%" r="100%"><stop offset="0%" stop-color="%23fff" stop-opacity=".1"/><stop offset="100%" stop-color="%23fff" stop-opacity="0"/></radialGradient></defs><rect width="100" height="20" fill="url(%23a)"/></svg>') repeat-x;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.8), 0 0 30px rgba(118, 75, 162, 0.6);
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+        
+        .stat-card:hover::before {
+            opacity: 1;
+            animation: sweep 1s ease-in-out;
+        }
+        
+        @keyframes sweep {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48cae4);
+            background-size: 300% 300%;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+            animation-duration: 0.5s;
+        }
+        
+        .cta-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        .main-content {
+            background: #16213e;
+            border-radius: 0;
+        }
+        
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .domain-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .domain-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .domain-card:hover::before {
+            left: 100%;
+        }
+        
+        .domain-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+        }
+        
+        .domain-percentage {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .domain-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .course-outline {
+            background: #0f1729;
+            padding: 60px 0;
+        }
+        
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        
+        .section-card {
+            background: linear-gradient(145deg, #1e2749 0%, #2a3558 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.03),
+                transparent
+            );
+            background-size: 200% 100%;
+            animation: shimmer-loading 3s infinite;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        @keyframes shimmer-loading {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        
+        .section-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .section-card:hover::after {
+            opacity: 1;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .section-card:nth-child(even) {
+            transform: translateY(20px);
+        }
+        
+        .section-card:nth-child(even):hover {
+            transform: translateY(10px);
+        }
+        
+        .section-header {
+            margin-bottom: 20px;
+        }
+        
+        .section-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .section-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .section-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .labs-list {
+            list-style: none;
+        }
+        
+        .lab-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .lab-item::before {
+            content: '▶';
+            color: #667eea;
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .lab-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .lab-item:active {
+            transform: translateX(10px) scale(0.98);
+        }
+        
+        .challenge-section {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            position: relative;
+        }
+        
+        .challenge-section::before {
+            content: '🏆';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+        
+        .challenge-section .section-card-title,
+        .challenge-section .section-description {
+            color: white;
+        }
+        
+        .challenge-section .lab-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-left-color: white;
+            color: white;
+        }
+        
+        .challenge-section .lab-item::before {
+            color: white;
+        }
+        
+        .challenge-section .lab-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .prerequisites {
+            background: #1a1a2e;
+            padding: 50px 0;
+        }
+        
+        .prereq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .prereq-item {
+            background: linear-gradient(145deg, #2a3558, #1e2749);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .prereq-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .prereq-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .footer-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23fff" opacity="0.1"><animate attributeName="r" values="2;10;2" dur="3s" repeatCount="indefinite"/></circle></svg>') repeat;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .footer-cta h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            z-index: 9999;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #764ba2, #f093fb);
+        }
+        
+        /* Particle animation */
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content .badge {
+                font-size: 0.8rem;
+                padding: 6px 16px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .domains-grid,
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .domain-card {
+                padding: 20px;
+            }
+            
+            .domain-percentage {
+                font-size: 2.5rem;
+            }
+            
+            .footer-cta h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.1;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .footer-cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">✨ #1 Best Selling AWS Course</div>
+                <h1>AWS Certified Cloud Practitioner CLF-C02</h1>
+                <p class="hero-subtitle">Complete Hands-On Certification Course - Zero to Expert Level</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">75+</span>
+                        <span class="stat-label">Hands-On Labs</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">17</span>
+                        <span class="stat-label">Course Sections</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Challenge Labs</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Practical Learning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Prerequisites Section -->
+        <section class="prerequisites">
+            <div class="container">
+                <h2 class="section-title">📋 Prerequisites</h2>
+                <div class="prereq-grid">
+                    <div class="prereq-item">
+                        <span class="prereq-icon">☁️</span>
+                        <h3>Cloud Basics</h3>
+                        <p>Basic understanding of cloud computing concepts</p>
+                    </div>
+                    <div class="prereq-item">
+                        <span class="prereq-icon">🌐</span>
+                        <h3>Web Technologies</h3>
+                        <p>Familiarity with web technologies and internet basics</p>
+                    </div>
+                    <div class="prereq-item">
+                        <span class="prereq-icon">🎯</span>
+                        <h3>No AWS Experience</h3>
+                        <p>No prior AWS experience required - beginner friendly</p>
+                    </div>
+                    <div class="prereq-item">
+                        <span class="prereq-icon">💡</span>
+                        <h3>Learning Mindset</h3>
+                        <p>Enthusiasm to learn and hands-on practice</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exam Domains Section -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">🎯 CLF-C02 Exam Domains</h2>
+                <div class="domains-grid">
+                    <div class="domain-card">
+                        <div class="domain-percentage">24%</div>
+                        <h3 class="domain-title">Cloud Concepts</h3>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-percentage">30%</div>
+                        <h3 class="domain-title">Security & Compliance</h3>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-percentage">34%</div>
+                        <h3 class="domain-title">Technology</h3>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-percentage">12%</div>
+                        <h3 class="domain-title">Billing & Pricing</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Outline Section -->
+        <section class="course-outline">
+            <div class="container">
+                <h2 class="section-title">📚 Complete Course Curriculum</h2>
+                <div class="sections-grid">
+                    <!-- Section 1 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 1</span>
+                            <h3 class="section-card-title">AWS Foundation & Getting Started</h3>
+                            <p class="section-description">Master AWS basics, console navigation, and core cloud concepts</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Access and tour AWS console</li>
+                            <li class="lab-item">Use AWS CloudShell and run AWS CLI Commands</li>
+                            <li class="lab-item">Create AWS EC2 Instance and run CLI Commands</li>
+                            <li class="lab-item">Introduction to Cost Explorer</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 2</span>
+                            <h3 class="section-card-title">Identity & Access Management (IAM)</h3>
+                            <p class="section-description">Master AWS security fundamentals and access control mechanisms</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Introduction to AWS IAM</li>
+                            <li class="lab-item">Creating IAM Policies</li>
+                            <li class="lab-item">Creating and managing IAM Roles</li>
+                            <li class="lab-item">Accessing S3 with AWS IAM Roles</li>
+                            <li class="lab-item">Introduction to Amazon Artifact</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 3</span>
+                            <h3 class="section-card-title">Amazon EC2 - Elastic Compute Cloud</h3>
+                            <p class="section-description">Master virtual servers, instance management, and compute services</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Create, Stop, Start, Reboot and Terminate EC2</li>
+                            <li class="lab-item">SSH connection using Putty</li>
+                            <li class="lab-item">Connect to Windows machine using RDC</li>
+                            <li class="lab-item">Browser-Based SSH Connection</li>
+                            <li class="lab-item">Upgrading and Downgrading Instance Types</li>
+                            <li class="lab-item">Elastic IP allocation and association</li>
+                            <li class="lab-item">Launch Spot Instances</li>
+                            <li class="lab-item">Creating AMI from EC2 Instance</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 4</span>
+                            <h3 class="section-card-title">Amazon S3 - Simple Storage Service</h3>
+                            <p class="section-description">Understand object storage, bucket management, and static hosting</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Creating and managing S3 Buckets</li>
+                            <li class="lab-item">Upload and download files in S3</li>
+                            <li class="lab-item">Enable public access to S3 objects</li>
+                            <li class="lab-item">S3 Encryption with AWS KMS and CloudTrail</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 5 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 5</span>
+                            <h3 class="section-card-title">Storage Services - EBS & EFS</h3>
+                            <p class="section-description">Master block and file storage solutions for different use cases</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">EBS RAID Options configuration</li>
+                            <li class="lab-item">Migrating EBS volumes from gp2 to gp3</li>
+                            <li class="lab-item">Mount Elastic File System (EFS) on EC2</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 6 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 6</span>
+                            <h3 class="section-card-title">Networking & VPC</h3>
+                            <p class="section-description">Master virtual networking, subnets, and security configurations</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Creating VPC with VPC Wizard</li>
+                            <li class="lab-item">Build VPC with Public/Private Subnets</li>
+                            <li class="lab-item">Configure Layered Security in VPC</li>
+                            <li class="lab-item">Stateful vs Stateless Firewalls</li>
+                            <li class="lab-item">Troubleshoot VPC Connectivity Issues</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 7 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 7</span>
+                            <h3 class="section-card-title">Load Balancing & High Availability</h3>
+                            <p class="section-description">Implement load balancing and ensure high availability</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">AWS Elastic Load Balancing overview</li>
+                            <li class="lab-item">Application Load Balancer setup</li>
+                            <li class="lab-item">Network Load Balancer configuration</li>
+                            <li class="lab-item">Auto Scaling Groups implementation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 8 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 8</span>
+                            <h3 class="section-card-title">Database Services</h3>
+                            <p class="section-description">Understand managed database services (RDS & DynamoDB)</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">AWS Relational Database Service</li>
+                            <li class="lab-item">Connect RDS from EC2 Instance</li>
+                            <li class="lab-item">Introduction to AWS DynamoDB</li>
+                            <li class="lab-item">Create DynamoDB and add table items</li>
+                            <li class="lab-item">DynamoDB operations with NoSQL Workbench</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 9 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 9</span>
+                            <h3 class="section-card-title">Content Delivery & CloudFront</h3>
+                            <p class="section-description">Learn global content delivery and edge locations</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">CloudFront Distribution setup</li>
+                            <li class="lab-item">Configure custom domain with CloudFront</li>
+                            <li class="lab-item">Implement caching strategies</li>
+                            <li class="lab-item">Edge locations and performance optimization</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 10 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 10</span>
+                            <h3 class="section-card-title">Monitoring & CloudWatch</h3>
+                            <p class="section-description">Master AWS monitoring, logging, and alerting services</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">CloudWatch Metrics and Dashboards</li>
+                            <li class="lab-item">Set up CloudWatch Alarms</li>
+                            <li class="lab-item">CloudWatch Logs configuration</li>
+                            <li class="lab-item">AWS CloudTrail for audit logging</li>
+                            <li class="lab-item">AWS Config for compliance monitoring</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 11 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 11</span>
+                            <h3 class="section-card-title">Serverless Computing</h3>
+                            <p class="section-description">Explore AWS Lambda and serverless architectures</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Create and deploy AWS Lambda functions</li>
+                            <li class="lab-item">API Gateway integration</li>
+                            <li class="lab-item">Event-driven architectures</li>
+                            <li class="lab-item">Serverless application patterns</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 12 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 12</span>
+                            <h3 class="section-card-title">Container Services</h3>
+                            <p class="section-description">Learn Docker containers and AWS container services</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">Introduction to Amazon ECS</li>
+                            <li class="lab-item">AWS Fargate serverless containers</li>
+                            <li class="lab-item">Amazon EKS for Kubernetes</li>
+                            <li class="lab-item">Container deployment strategies</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 13 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 13</span>
+                            <h3 class="section-card-title">Security & Compliance</h3>
+                            <p class="section-description">Deep dive into AWS security best practices and compliance</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">AWS Well-Architected Framework</li>
+                            <li class="lab-item">Security Groups vs NACLs</li>
+                            <li class="lab-item">AWS WAF and Shield protection</li>
+                            <li class="lab-item">Encryption at rest and in transit</li>
+                            <li class="lab-item">Compliance and governance tools</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 14 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 14</span>
+                            <h3 class="section-card-title">Migration & Hybrid Cloud</h3>
+                            <p class="section-description">Learn cloud migration strategies and hybrid architectures</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">AWS Migration Hub overview</li>
+                            <li class="lab-item">Database migration with DMS</li>
+                            <li class="lab-item">AWS Direct Connect setup</li>
+                            <li class="lab-item">Hybrid cloud connectivity options</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 15 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 15</span>
+                            <h3 class="section-card-title">Cost Optimization & Billing</h3>
+                            <p class="section-description">Master AWS pricing models and cost optimization strategies</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">AWS Cost Explorer deep dive</li>
+                            <li class="lab-item">Reserved Instances and Savings Plans</li>
+                            <li class="lab-item">AWS Budgets and cost alerts</li>
+                            <li class="lab-item">Resource tagging for cost allocation</li>
+                            <li class="lab-item">AWS Trusted Advisor recommendations</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 16 -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <span class="section-number">Section 16</span>
+                            <h3 class="section-card-title">Exam Preparation & Practice</h3>
+                            <p class="section-description">Final preparation with practice exams and review sessions</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">CLF-C02 exam format and structure</li>
+                            <li class="lab-item">Practice questions and mock exams</li>
+                            <li class="lab-item">Exam tips and strategies</li>
+                            <li class="lab-item">Key concepts review and summary</li>
+                            <li class="lab-item">Scheduling and taking the exam</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 17 - Challenge Labs -->
+                    <div class="section-card challenge-section">
+                        <div class="section-header">
+                            <span class="section-number">Section 17</span>
+                            <h3 class="section-card-title">🏆 Challenge Labs - Final Assessment</h3>
+                            <p class="section-description">Apply your knowledge through practical challenges and validate your skills</p>
+                        </div>
+                        <ul class="labs-list">
+                            <li class="lab-item">AWS RDS MySQL Lab Challenge</li>
+                            <li class="lab-item">Static Website Hosting S3 Challenge</li>
+                            <li class="lab-item">Advanced S3 Configuration Challenge</li>
+                            <li class="lab-item">VPC Environment Creation Challenge</li>
+                            <li class="lab-item">ECS Container Launch Challenge</li>
+                            <li class="lab-item">S3 + KMS + CloudTrail Challenge</li>
+                            <li class="lab-item">Multi-tier Architecture Challenge</li>
+                            <li class="lab-item">Cost Optimization Challenge</li>
+                            <li class="lab-item">Security Implementation Challenge</li>
+                            <li class="lab-item">Serverless Application Challenge</li>
+                            <li class="lab-item">Disaster Recovery Challenge</li>
+                            <li class="lab-item">Final Capstone Project</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer CTA -->
+    <footer class="footer-cta">
+        <div class="container">
+            <h2>🚀 Ready to Master AWS Cloud?</h2>
+            <p>Join thousands of successful students who passed CLF-C02 certification</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create and setup progress bar
+            const progressBar = document.querySelector('.progress-bar');
+            
+            // Update progress on scroll
+            window.addEventListener('scroll', () => {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards
+            const cards = document.querySelectorAll('.section-card, .domain-card, .stat-card, .prereq-item');
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(card);
+            });
+
+            // Add staggered animation to stats
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+
+            // Add staggered animation to domain cards
+            const domainCards = document.querySelectorAll('.domain-card');
+            domainCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.15}s`;
+            });
+
+            // Add staggered animation to section cards
+            const sectionCards = document.querySelectorAll('.section-card');
+            sectionCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+
+            // Smooth scroll for CTA buttons
+            document.querySelectorAll('a[href="#enroll"]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Create enrollment modal
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.9);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 10000;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    `;
+                    
+                    const modalContent = document.createElement('div');
+                    modalContent.style.cssText = `
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        padding: 40px;
+                        border-radius: 20px;
+                        text-align: center;
+                        max-width: 500px;
+                        color: white;
+                        transform: scale(0.7);
+                        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        margin: 20px;
+                    `;
+                    
+                    modalContent.innerHTML = `
+                        <h2 style="margin-bottom: 20px; font-size: 2rem;">🎉 Ready to Start?</h2>
+                        <p style="margin-bottom: 30px; font-size: 1.1rem;">Join over 50,000 students who have successfully mastered AWS!</p>
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="window.open('https://udemy.com', '_blank')" style="
+                                background: #ff6b6b;
+                                color: white;
+                                border: none;
+                                padding: 15px 25px;
+                                border-radius: 50px;
+                                font-weight: bold;
+                                cursor: pointer;
+                                transition: transform 0.2s ease;
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                🚀 Enroll Now - $49.99
+                            </button>
+                            <button onclick="this.closest('[style*=fixed]').remove()" style="
+                                background: transparent;
+                                color: white;
+                                border: 2px solid white;
+                                padding: 15px 25px;
+                                border-radius: 50px;
+                                font-weight: bold;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+                            " onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='transparent'; this.style.color='white'">
+                                Maybe Later
+                            </button>
+                        </div>
+                    `;
+                    
+                    modal.appendChild(modalContent);
+                    document.body.appendChild(modal);
+                    
+                    // Animate modal appearance
+                    setTimeout(() => {
+                        modal.style.opacity = '1';
+                        modalContent.style.transform = 'scale(1)';
+                    }, 10);
+                    
+                    // Close modal on backdrop click
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.style.opacity = '0';
+                            modalContent.style.transform = 'scale(0.7)';
+                            setTimeout(() => modal.remove(), 300);
+                        }
+                    });
+                });
+            });
+
+            // Add floating particles effect
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(102, 126, 234, 0.6);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: -1;
+                    animation: float-up 6s linear infinite;
+                `;
+                
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 6000);
+            }
+
+            // Create particles periodically
+            setInterval(createParticle, 500);
+
+            // Add typing effect to hero title
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.textContent;
+            heroTitle.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    heroTitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+
+            // Add counter animation to stats
+            const animateValue = (element, start, end, duration) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const current = Math.floor(progress * (end - start) + start);
+                    element.textContent = current + (element.textContent.includes('%') ? '%' : '+');
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            // Animate stats when they come into view
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumber = entry.target.querySelector('.stat-number');
+                        const value = parseInt(statNumber.textContent);
+                        if (!statNumber.classList.contains('animated')) {
+                            statNumber.classList.add('animated');
+                            animateValue(statNumber, 0, value, 2000);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.stat-card').forEach(card => {
+                statsObserver.observe(card);
+            });
+
+            // Add click effects to lab items
+            document.querySelectorAll('.lab-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'translateX(10px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Add parallax effect to hero section
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.header');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+
+            // Add loading animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
